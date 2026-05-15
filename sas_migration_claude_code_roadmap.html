@@ -1,0 +1,180 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.rm{padding:1.5rem 0}
+.progress-row{display:flex;gap:4px;margin-bottom:1.75rem}
+.prog-seg{height:5px;border-radius:3px;flex:1}
+.week-block{margin-bottom:1.75rem}
+.week-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.week-badge{font-size:11px;font-weight:500;padding:3px 12px;border-radius:20px;white-space:nowrap}
+.week-title{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:11px 13px;cursor:pointer;transition:border-color .15s}
+.card:hover{border-color:var(--color-border-secondary)}
+.card-tag{font-size:10px;font-weight:500;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.card-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;line-height:1.3}
+.card-sub{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+.deliverable{display:flex;align-items:center;gap:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:9px 13px;font-size:12px;color:var(--color-text-secondary)}
+.deliverable i{font-size:15px;flex-shrink:0}
+.pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.pill{font-size:11px;padding:2px 9px;border-radius:20px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);background:var(--color-background-primary)}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1.25rem 0}
+
+.w1-bg{background:#EEEDFE;color:#3C3489}.w1-c{color:#534AB7}.w1-l{border-left:3px solid #7F77DD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.w2-bg{background:#E1F5EE;color:#085041}.w2-c{color:#0F6E56}.w2-l{border-left:3px solid #1D9E75;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.w3-bg{background:#FAEEDA;color:#633806}.w3-c{color:#854F0B}.w3-l{border-left:3px solid #BA7517;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.w4-bg{background:#FAECE7;color:#712B13}.w4-c{color:#993C1D}.w4-l{border-left:3px solid #D85A30;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+</style>
+
+<div class="rm">
+<h2 class="sr-only">SAS-to-Python Migration Assistant — Claude Code project roadmap</h2>
+
+<div class="progress-row">
+  <div class="prog-seg" style="background:#7F77DD"></div>
+  <div class="prog-seg" style="background:#1D9E75"></div>
+  <div class="prog-seg" style="background:#BA7517"></div>
+  <div class="prog-seg" style="background:#D85A30"></div>
+</div>
+
+<!-- WEEK 1 -->
+<div class="week-block">
+  <div class="week-header">
+    <span class="week-badge w1-bg">Week 1</span>
+    <span class="week-title">Foundation — CLAUDE.md, specs &amp; project scaffold</span>
+  </div>
+  <div class="cards">
+    <div class="card w1-l" onclick="sendPrompt('Help me write the CLAUDE.md for the SAS-to-Python Migration Assistant project')">
+      <div class="card-tag w1-c">CLAUDE.md</div>
+      <div class="card-title">Write CLAUDE.md</div>
+      <div class="card-sub">Project context, tech stack rules, SAS domain conventions, coding standards</div>
+    </div>
+    <div class="card w1-l" onclick="sendPrompt('Help me write the project spec for the SAS parser component')">
+      <div class="card-tag w1-c">Spec</div>
+      <div class="card-title">Parser spec</div>
+      <div class="card-sub">Define expected inputs, outputs, construct types, edge cases for Claude Code</div>
+    </div>
+    <div class="card w1-l" onclick="sendPrompt('What should my project folder structure look like for the SAS migration tool built with Claude Code?')">
+      <div class="card-tag w1-c">Scaffold</div>
+      <div class="card-title">Repo structure</div>
+      <div class="card-sub">src/, specs/, skills/, .claude/, tests/ — all folders Claude Code expects</div>
+    </div>
+    <div class="card w1-l" onclick="sendPrompt('Help me write sample SAS test files covering DATA step, PROC SQL and PROC MEANS for the migration project')">
+      <div class="card-tag w1-c">Data</div>
+      <div class="card-title">SAS test corpus</div>
+      <div class="card-sub">20+ real-world SAS patterns from banking/mortgage domain for Claude Code to work against</div>
+    </div>
+  </div>
+  <div class="deliverable"><i class="ti ti-file-text" aria-hidden="true"></i>Deliverable — CLAUDE.md live, specs written, repo on GitHub, Claude Code reads the project correctly</div>
+  <div class="pills">
+    <span class="pill">CLAUDE.md</span><span class="pill">Parser spec</span><span class="pill">Converter spec</span><span class="pill">GitHub repo</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WEEK 2 -->
+<div class="week-block">
+  <div class="week-header">
+    <span class="week-badge w2-bg">Week 2</span>
+    <span class="week-title">Agentic core — subagents, skills &amp; slash commands</span>
+  </div>
+  <div class="cards">
+    <div class="card w2-l" onclick="sendPrompt('Help me design the SAS parser subagent for the Claude Code project — what should its skill file contain?')">
+      <div class="card-tag w2-c">Subagent</div>
+      <div class="card-title">Parser subagent</div>
+      <div class="card-sub">Skill file for tokenising DATA step, PROC SQL, PROC MEANS, macros</div>
+    </div>
+    <div class="card w2-l" onclick="sendPrompt('Help me design the code generation subagent skill for converting parsed SAS blocks to Python pandas')">
+      <div class="card-tag w2-c">Subagent</div>
+      <div class="card-title">Code gen subagent</div>
+      <div class="card-sub">Skill file for SAS→pandas conversion using Claude as the LLM backbone</div>
+    </div>
+    <div class="card w2-l" onclick="sendPrompt('Help me design the validation subagent skill that checks if converted Python output matches original SAS logic')">
+      <div class="card-tag w2-c">Subagent</div>
+      <div class="card-title">Validator subagent</div>
+      <div class="card-sub">Skill file for logic parity checking, TODO flagging, diff generation</div>
+    </div>
+    <div class="card w2-l" onclick="sendPrompt('Help me write Claude Code slash commands for the SAS migration tool — /convert, /validate, /report')">
+      <div class="card-tag w2-c">Commands</div>
+      <div class="card-title">Slash commands</div>
+      <div class="card-sub">/convert, /validate, /report, /macro-resolve — repeatable Claude Code workflows</div>
+    </div>
+  </div>
+  <div class="deliverable"><i class="ti ti-terminal" aria-hidden="true"></i>Deliverable — 3 subagent skills working in Claude Code, slash commands triggering end-to-end conversion</div>
+  <div class="pills">
+    <span class="pill">parser.skill</span><span class="pill">codegen.skill</span><span class="pill">validator.skill</span><span class="pill">/convert</span><span class="pill">/validate</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WEEK 3 -->
+<div class="week-block">
+  <div class="week-header">
+    <span class="week-badge w3-bg">Week 3</span>
+    <span class="week-title">RAG layer &amp; domain knowledge</span>
+  </div>
+  <div class="cards">
+    <div class="card w3-l" onclick="sendPrompt('Help me write the RAG knowledge base spec for the SAS migration tool — what documents should I index?')">
+      <div class="card-tag w3-c">Spec</div>
+      <div class="card-title">RAG spec</div>
+      <div class="card-sub">Define what gets indexed: SAS docs, migration patterns, BFS mortgage conventions</div>
+    </div>
+    <div class="card w3-l" onclick="sendPrompt('Help me design the RAG context skill file for Claude Code that retrieves SAS migration patterns at runtime')">
+      <div class="card-tag w3-c">Skill</div>
+      <div class="card-title">RAG context skill</div>
+      <div class="card-sub">Skill file for vector retrieval — augments code gen subagent with domain context</div>
+    </div>
+    <div class="card w3-l" onclick="sendPrompt('How do I add BFS and mortgage-specific SAS patterns to my RAG knowledge base for the migration tool?')">
+      <div class="card-tag w3-c">Domain</div>
+      <div class="card-title">BFS knowledge layer</div>
+      <div class="card-sub">Index your FTB/MSP SAS macros and mortgage calc patterns — the unique differentiator</div>
+    </div>
+    <div class="card w3-l" onclick="sendPrompt('Help me write a /macro-resolve slash command for Claude Code that resolves SAS macro variables before conversion')">
+      <div class="card-tag w3-c">Command</div>
+      <div class="card-title">/macro-resolve command</div>
+      <div class="card-sub">Slash command that resolves %LET, %MACRO vars using RAG context before handing to code gen</div>
+    </div>
+  </div>
+  <div class="deliverable"><i class="ti ti-database" aria-hidden="true"></i>Deliverable — RAG layer live, macro resolution working, BFS patterns indexed and retrieval tested</div>
+  <div class="pills">
+    <span class="pill">rag.skill</span><span class="pill">BFS patterns indexed</span><span class="pill">/macro-resolve</span><span class="pill">Retrieval tested</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WEEK 4 -->
+<div class="week-block">
+  <div class="week-header">
+    <span class="week-badge w4-bg">Week 4</span>
+    <span class="week-title">Polish, demo &amp; portfolio launch</span>
+  </div>
+  <div class="cards">
+    <div class="card w4-l" onclick="sendPrompt('Help me write a /report slash command for Claude Code that generates a migration diff report from SAS to Python')">
+      <div class="card-tag w4-c">Command</div>
+      <div class="card-title">/report command</div>
+      <div class="card-sub">Auto-generates migration diff report — coverage score, TODOs, side-by-side comparison</div>
+    </div>
+    <div class="card w4-l" onclick="sendPrompt('Help me refine the CLAUDE.md for the SAS migration project with full spec-driven development docs')">
+      <div class="card-tag w4-c">CLAUDE.md</div>
+      <div class="card-title">Finalise CLAUDE.md</div>
+      <div class="card-sub">Add all subagent roles, skill references, command docs, project conventions</div>
+    </div>
+    <div class="card w4-l" onclick="sendPrompt('What should I include in the GitHub README for the SAS-to-Python Migration Assistant built with Claude Code?')">
+      <div class="card-tag w4-c">GitHub</div>
+      <div class="card-title">README &amp; demo</div>
+      <div class="card-sub">Architecture diagram, demo GIF of Claude Code in action, BFS domain context, usage examples</div>
+    </div>
+    <div class="card w4-l" onclick="sendPrompt('Write a LinkedIn post for my SAS-to-Python Migration Assistant project built with Claude Code agentic coding')">
+      <div class="card-tag w4-c">Portfolio</div>
+      <div class="card-title">LinkedIn write-up</div>
+      <div class="card-sub">Case study post — before/after SAS→Python, skills showcased, Claude Code workflow</div>
+    </div>
+  </div>
+  <div class="deliverable"><i class="ti ti-rocket" aria-hidden="true"></i>Deliverable — Full Claude Code project on GitHub, demo recorded, LinkedIn published</div>
+  <div class="pills">
+    <span class="pill">/report command</span><span class="pill">Final CLAUDE.md</span><span class="pill">GitHub README</span><span class="pill">Demo recorded</span><span class="pill">LinkedIn live</span>
+  </div>
+</div>
+
+</div>
