@@ -4,7 +4,16 @@
       "Bash(Get-ChildItem -Recurse -Depth 3 \"D:\\\\SAS-to-Python Migration Assistant\")",
       "Bash(Select-Object FullName)",
       "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
-      "Bash(pip install *)"
+      "Bash(pip install *)",
+      "Bash(python -m pytest tests/test_parser.py -v)",
+      "Bash(.venv\\\\Scripts\\\\python.exe -m pytest tests/test_parser.py -v)",
+      "Bash(SASenv/Scripts/python.exe -m pytest tests/test_parser.py -v)",
+      "Bash(SASenv/Scripts/pip.exe install *)",
+      "Bash(SASenv/Scripts/python.exe -m pytest tests/test_converter.py -v)",
+      "Bash(SASenv/Scripts/python.exe -m pytest tests/test_validator.py -v)",
+      "Bash(SASenv/Scripts/python.exe -m pytest tests/ -v)",
+      "Bash(SASenv/Scripts/python.exe -)",
+      "Bash(SASenv/Scripts/python.exe -c ' *)"
     ]
   }
 }
