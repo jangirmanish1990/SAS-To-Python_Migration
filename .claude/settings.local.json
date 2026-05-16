@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse -Depth 3 \"D:\\\\SAS-to-Python Migration Assistant\")",
+      "Bash(Select-Object FullName)",
+      "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(pip install *)"
+    ]
+  }
+}

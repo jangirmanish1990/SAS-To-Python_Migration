@@ -1,0 +1,97 @@
+# ─────────────────────────────────────────────
+# SAS-to-Python Migration Assistant
+# .gitignore
+# ─────────────────────────────────────────────
+
+# ── Environment & secrets ────────────────────
+.env
+.env.local
+.env.*.local
+*.env
+
+# ── Python ───────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# ── Virtual environments ──────────────────────
+.venv/
+venv/
+env/
+ENV/
+.virtualenv/
+
+# ── RAG / Vector store ───────────────────────
+# ChromaDB persisted data — rebuild with ingest.py
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# ── SAS files with sensitive data ────────────
+# Keep sample SAS in tests/sample_sas/
+# Ignore any real client SAS files at root
+*.sas7bdat
+*.sas7bcat
+
+# ── Output files ─────────────────────────────
+# Generated Python conversions — don't commit
+output/
+*.resolved.sas
+
+# ── Logs ─────────────────────────────────────
+*.log
+logs/
+*.log.*
+
+# ── IDE ──────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── OS ───────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ── Jupyter (if used for exploration) ────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── PySpark (if enabled) ─────────────────────
+derby.log
+metastore_db/
+spark-warehouse/
+
+# ── Test artifacts ───────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+test-results/
+*.xml
+
+# ── Migration reports ─────────────────────────
+# Commit reports intentionally — don't auto-ignore
+# output/migration_report_*.md  ← keep commented

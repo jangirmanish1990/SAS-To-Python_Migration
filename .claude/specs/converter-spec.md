@@ -199,8 +199,8 @@ in the system message:
 ## LLM configuration
 
 ```python
-llm = ChatAnthropic(
-    model="claude-sonnet-4-20250514",
+llm = ChatOpenAI(
+    model="gpt-4o",
     max_tokens=4096,
     temperature=0,        # deterministic — never change this
 )

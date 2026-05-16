@@ -20,24 +20,24 @@ This is a portfolio project demonstrating:
 ## Project structure
 
 ```
-sas-migration/
+sas-to-python-migration/
 ├── CLAUDE.md                  ← you are here
-├── specs/
-│   ├── parser.md              ← SAS parser spec
-│   ├── converter.md           ← code generation spec
-│   ├── validator.md           ← validation + diff report spec
-│   └── rag.md                 ← RAG knowledge layer spec
 ├── .claude/
 │   ├── skills/
 │   │   ├── sas-parser.md      ← parser subagent skill
 │   │   ├── code-gen.md        ← code generation subagent skill
 │   │   ├── validator.md       ← validation subagent skill
 │   │   └── rag-context.md     ← RAG retrieval skill
-│   └── commands/
-│       ├── convert.md         ← /convert slash command
-│       ├── validate.md        ← /validate slash command
-│       ├── report.md          ← /report slash command
-│       └── macro-resolve.md   ← /macro-resolve slash command
+│   ├── commands/
+│   │   ├── convert.md         ← /convert slash command
+│   │   ├── validate.md        ← /validate slash command
+│   │   ├── report.md          ← /report slash command
+│   │   └── macro-resolve.md   ← /macro-resolve slash command
+│   └── specs/
+│       ├── parser.md          ← SAS parser spec
+│       ├── converter.md       ← code generation spec
+│       ├── validator.md       ← validation + diff report spec
+│       └── rag.md             ← RAG knowledge layer spec
 ├── src/
 │   ├── parser.py              ← SAS tokeniser and block splitter
 │   ├── converter.py           ← LangChain + Claude conversion chains
@@ -60,9 +60,10 @@ sas-migration/
 | Layer | Tool |
 |---|---|
 | Agent framework | Claude Code — VS Code extension |
+| LLM API | OpenAI (`gpt-4o`) via `langchain-openai` |
 | Orchestration | LangGraph |
-| LLM | Claude (claude-sonnet-4-20250514) |
-| LangChain chains | langchain-anthropic |
+| LLM | GPT-4o (gpt-4o) |
+| LangChain chains | langchain-openai |
 | RAG vector store | ChromaDB |
 | Embeddings | sentence-transformers |
 | API layer | FastAPI |
@@ -252,14 +253,38 @@ Type directly in the Claude Code chat panel:
 
 ### Specs location
 Claude Code reads specs before starting any task in that domain:
-- Parser tasks → read `specs/parser.md` first
-- Converter tasks → read `specs/converter.md` first
-- RAG tasks → read `specs/rag.md` first
+- Parser tasks → read `.claude/specs/parser.md` first
+- Converter tasks → read `.claude/specs/converter.md` first
+- RAG tasks → read `.claude/specs/rag.md` first
+
+### Local setup (no Docker required)
+
+```bash
+# 1. Create virtual environment
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+
+# Mac/Linux
+source .venv/bin/activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Set up environment
+cp .env.example .env
+# Add your OPENAI_API_KEY to .env
+
+# 4. Run tests
+pytest tests/ -v
+```
 
 ### Session startup message (paste this to orient Claude Code each session)
 ```
-Read CLAUDE.md and the relevant spec in specs/ before starting.
+Read CLAUDE.md and the relevant spec in .claude/specs/ before starting.
 Project: SAS-to-Python Migration Assistant.
 Working in VS Code. Target output: pandas | sql | pyspark (specify per task).
 Follow all coding standards and subagent routing rules in CLAUDE.md.
+No Docker — run locally with pip + venv.
 ```

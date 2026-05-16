@@ -354,10 +354,66 @@ Always add `# TODO: manual review` for these:
 | `&unresolved_var` | Macro variable not resolved before conversion |
 | `monotonic()` | SAS-only — replace with reset_index |
 | `PUT(col, fmt)` with complex formats | Verify format mapping |
-| `PROC REPORT` | No pandas equivalent — use to_excel or Streamlit |
+| `PROC REPORT` | No direct pandas equivalent — use df.to_excel() or Streamlit table |
+| `PROC TABULATE` | No direct pandas equivalent — use groupby().agg() + pivot_table() |
 | `ODS` output | Use df.to_excel() or df.to_html() |
-| `LIBNAME` | Replace with file path or SQLAlchemy connection |
-| `call symput` / `symget` | Replace with Python variables |
+| `LIBNAME` | Replace with file path or SQLAlchemy connection string |
+| `call symput` / `symget` | Replace with plain Python variables — no special mechanism needed |
+
+---
+
+## Critical conversion rules from the parser output
+
+### Rule: Running sum in `derived_columns` ≠ simple addition
+
+The parser captures SAS sum statements (`count + swipe`) in `derived_columns` like this:
+```python
+"derived_columns": {"count": "count + swipe"}
+```
+
+This is a **SAS RETAIN running sum** — NOT a one-time addition.
+`count + swipe` in SAS means: retain `count` across rows and add `swipe` to it each row.
+
+**Wrong conversion:**
+```python
+# WRONG — this is a one-time addition, not a running sum
+df["count"] = df["count"] + df["swipe"]
+```
+
+**Correct conversion:**
+```python
+# SAS: count + swipe (RETAIN running sum per group)
+df["count"] = df.groupby("cc")["swipe"].cumsum()
+# SAS: if last.cc=1 → collapse to one row per group
+result = df.groupby("cc", as_index=False).agg(count=("swipe", "sum"))
+```
+
+Check `docs/patterns/first-last-retain.md` for the full RETAIN running sum patterns.
+
+### Rule: `PROC REPORT` and `PROC TABULATE` always get TODO flag
+
+The parser returns these as `type: "unknown"` since they are not in the
+construct list. When you see `type: "unknown"` and `raw_code` contains
+`PROC REPORT` or `PROC TABULATE`, do not attempt conversion. Return:
+
+```python
+# TODO: manual review — PROC REPORT has no direct pandas equivalent
+# Suggested replacement: df.to_excel("output.xlsx") or Streamlit st.dataframe()
+# Original SAS:
+# proc report data=sasuser.admit nowd;
+# ...
+# run;
+```
+
+```python
+# TODO: manual review — PROC TABULATE has no direct pandas equivalent
+# Suggested replacement: df.groupby(class_vars)[var_cols].agg([...])
+#                     or pd.pivot_table(df, values=..., index=..., aggfunc=...)
+# Original SAS:
+# proc tabulate data=...;
+# ...
+# run;
+```
 
 ---
 
