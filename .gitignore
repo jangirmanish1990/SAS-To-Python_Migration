@@ -92,6 +92,8 @@ htmlcov/
 test-results/
 *.xml
 
+.streamlit/secrets.toml
+
 # ── Migration reports ─────────────────────────
 # Commit reports intentionally — don't auto-ignore
 # output/migration_report_*.md  ← keep commented
