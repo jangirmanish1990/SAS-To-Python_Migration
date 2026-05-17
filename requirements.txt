@@ -7,9 +7,9 @@
 # ── LLM + LangChain ──────────────────────────
 openai==1.51.0
 langchain==0.3.1
-langchain-openai==0.2.1
-langchain-core==0.3.1
-langchain-community==0.3.1
+langchain-core==0.3.6
+langchain-openai==0.2.2
+langchain-community==0.3.2
 
 # ── LangGraph (Phase 3 — multi-agent) ────────
 langgraph==0.2.16
